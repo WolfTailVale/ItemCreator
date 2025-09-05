@@ -5,8 +5,16 @@ plugins {
     id("io.papermc.paperweight.userdev") version "1.7.1"
 }
 
+// Load version from properties file
+val versionProps = Properties()
+file("version.properties").inputStream().use { versionProps.load(it) }
+val mcVersion = versionProps.getProperty("minecraft")
+val pluginMajor = versionProps.getProperty("plugin_major")
+val pluginMinor = versionProps.getProperty("plugin_minor")
+val pluginPatch = versionProps.getProperty("plugin_patch")
+
 group = "dev.sora"
-version = "0.1.0"
+version = "${pluginMajor}.${pluginMinor}.${pluginPatch}"
 
 repositories {
     mavenCentral()

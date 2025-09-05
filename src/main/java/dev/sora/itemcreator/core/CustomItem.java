@@ -35,11 +35,19 @@ public class CustomItem {
     public String getId() { return id; }
 
     public ItemStack toItemStack(@NotNull ItemFactory factory) {
+        factory.getPlugin().getLogger().info("=== CUSTOM ITEM STACK CREATION DEBUG ===");
+        factory.getPlugin().getLogger().info("Item ID: " + id);
+        factory.getPlugin().getLogger().info("Material: " + material.name());
+        factory.getPlugin().getLogger().info("Display Name: " + displayName);
+        factory.getPlugin().getLogger().info("Lore: " + lore);
+        factory.getPlugin().getLogger().info("Custom Model Data: " + customModelData);
+        
         ItemStack stack = new ItemStack(material);
         ItemMeta meta = stack.getItemMeta();
         if (displayName != null) {
             Component name = LegacyComponentSerializer.legacyAmpersand().deserialize(displayName);
             meta.displayName(name);
+            factory.getPlugin().getLogger().info("Set display name component: " + name);
         }
         if (!lore.isEmpty()) {
             List<Component> loreComponents = new ArrayList<>();
@@ -47,23 +55,60 @@ public class CustomItem {
                 loreComponents.add(LegacyComponentSerializer.legacyAmpersand().deserialize(line));
             }
             meta.lore(loreComponents);
+            factory.getPlugin().getLogger().info("Set lore components: " + loreComponents.size() + " lines");
         }
-        if (customModelData != null) meta.setCustomModelData(customModelData);
+        if (customModelData != null) {
+            meta.setCustomModelData(customModelData);
+            factory.getPlugin().getLogger().info("Set custom model data: " + customModelData);
+        }
         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
         // Tag with PDC id
         NamespacedKey key = new NamespacedKey(factory.getPlugin(), "cid");
         PersistentDataContainer pdc = meta.getPersistentDataContainer();
         pdc.set(key, PersistentDataType.STRING, id);
+        factory.getPlugin().getLogger().info("Set PDC tag with ID: " + id);
         stack.setItemMeta(meta);
+        
+        factory.getPlugin().getLogger().info("Final ItemStack: " + stack.getType().name() + 
+            " (Amount: " + stack.getAmount() + ")");
+        if (stack.hasItemMeta() && stack.getItemMeta().hasCustomModelData()) {
+            factory.getPlugin().getLogger().info("Final custom model data: " + 
+                stack.getItemMeta().getCustomModelData());
+        }
+        factory.getPlugin().getLogger().info("=== END CUSTOM ITEM STACK CREATION DEBUG ===");
+        
         return stack;
     }
 
     public static CustomItem fromConfig(String id, ConfigurationSection section) {
-        Material material = Material.matchMaterial(section.getString("material", "PAPER"));
-        if (material == null) material = Material.PAPER;
-        String name = section.getString("name", id);
+        System.out.println("=== CUSTOM ITEM FROM CONFIG DEBUG ===");
+        System.out.println("Loading item ID: " + id);
+        System.out.println("Config section: " + section.getName());
+        
+        String materialString = section.getString("material", "PAPER");
+        System.out.println("Material string from config: " + materialString);
+        
+        Material material = Material.matchMaterial(materialString);
+        if (material == null) {
+            System.out.println("Failed to match material '" + materialString + "', defaulting to PAPER");
+            material = Material.PAPER;
+        } else {
+            System.out.println("Matched material: " + material.name());
+        }
+        
+        String name = section.getString("name", null); // Don't default to id, use null for no custom name
+        System.out.println("Display name: " + name);
+        
         List<String> lore = section.getStringList("lore");
+        System.out.println("Lore lines: " + lore);
+        
         Integer cmd = section.isInt("custom-model-data") ? section.getInt("custom-model-data") : null;
-        return new CustomItem(id, material, name, lore, cmd);
+        System.out.println("Custom model data: " + cmd);
+        
+        CustomItem item = new CustomItem(id, material, name, lore, cmd);
+        System.out.println("Created CustomItem: " + item.getId() + " -> " + item.material.name());
+        System.out.println("=== END CUSTOM ITEM FROM CONFIG DEBUG ===");
+        
+        return item;
     }
 }

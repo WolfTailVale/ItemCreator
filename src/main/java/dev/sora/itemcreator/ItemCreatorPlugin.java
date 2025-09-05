@@ -36,6 +36,7 @@ public final class ItemCreatorPlugin extends JavaPlugin {
         getCommand("giveitem").setExecutor(new GiveItemCommand(itemFactory));
         getCommand("giveitem").setTabCompleter(new dev.sora.itemcreator.commands.GiveItemTabCompleter(registry));
         getCommand("createrecipe").setExecutor(new CreateRecipeCommand(itemFactory, registry));
+        getCommand("recipes").setExecutor(new dev.sora.itemcreator.commands.RecipesCommand(itemFactory));
         getServer().getPluginManager().registerEvents(new BundleListener(registry, recipeRegistrar), this);
     }
 

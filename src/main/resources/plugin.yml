@@ -13,9 +13,16 @@ commands:
     description: Open the recipe creator interface
     usage: /createrecipe
     permission: itemcreator.createrecipe
+  recipes:
+    description: Manage existing recipes
+    usage: /recipes
+    permission: itemcreator.recipes
 permissions:
   itemcreator.give:
     default: op
   itemcreator.createrecipe:
     default: op
     description: Create custom recipes using the GUI interface
+  itemcreator.recipes:
+    default: op
+    description: View and manage existing recipes
