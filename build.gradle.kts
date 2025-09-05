@@ -19,10 +19,12 @@ version = "${pluginMajor}.${pluginMinor}.${pluginPatch}"
 repositories {
     mavenCentral()
     maven("https://repo.papermc.io/repository/maven-public/")
+    maven("https://repo.triumphteam.dev/snapshots/")
 }
 
 dependencies {
     paperweight.paperDevBundle("1.21.1-R0.1-SNAPSHOT")
+    implementation("dev.triumphteam:triumph-gui:3.1.7")
 }
 
 java {

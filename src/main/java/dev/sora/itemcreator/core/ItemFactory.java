@@ -17,6 +17,8 @@ public class ItemFactory {
     }
 
     public Plugin getPlugin() { return plugin; }
+    
+    public CustomItemRegistry getRegistry() { return registry; }
 
     public ItemStack create(String id) {
         return registry.get(id).map(i -> i.toItemStack(this)).orElse(null);

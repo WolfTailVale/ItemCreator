@@ -12,6 +12,48 @@ items:
     lore:
       - "A bundle of fletched arrows ready to loose."
     custom-model-data: 1002
+  crate_of_gunpowder:
+    material: LIGHT_GRAY_CONCRETE
+    name: "&6Crate of Gunpowder"
+    lore:
+      - "&7A dangerous explosive crate"
+      - "&7Right-click to detonate"
+      - "&c⚠ Creates blinding flash!"
+    custom-model-data: 1003
+    abilities:
+      flashbang:
+        type: flashbang
+        range: 15.0
+        duration: 6          # Duration in seconds (was blindness-duration: 120 ticks)
+        cooldown: 5          # Cooldown in seconds (was 5000 milliseconds)
+  
+  # Example healing item
+  magic_apple:
+    material: GOLDEN_APPLE
+    name: "&dMagic Apple"
+    lore:
+      - "&7A mystical fruit that heals wounds"
+      - "&7Right-click to heal yourself"
+    custom-model-data: 1004
+    abilities:
+      healing:
+        type: heal
+        heal: 6              # Heal amount (3 hearts)
+        cooldown: 10         # 10 seconds cooldown
+  
+  # Example teleport item
+  ender_stone:
+    material: ENDER_EYE
+    name: "&5Ender Stone"
+    lore:
+      - "&7A mystical stone infused with teleportation magic"
+      - "&7Right-click to teleport forward"
+    custom-model-data: 1005
+    abilities:
+      teleport:
+        type: teleport
+        distance: 8          # Teleport 8 blocks forward
+        cooldown: 3          # 3 seconds cooldown
 
 bundles:
   gunpowder:

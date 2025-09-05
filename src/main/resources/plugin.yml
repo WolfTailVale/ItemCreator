@@ -17,6 +17,14 @@ commands:
     description: Manage existing recipes
     usage: /recipes
     permission: itemcreator.recipes
+  itemcreator:
+    description: ItemCreator main command (reload)
+    usage: /itemcreator <reload>
+    permission: itemcreator.admin
+  abilities:
+    description: Manage item abilities through GUI
+    usage: /abilities <item_id>
+    permission: itemcreator.abilities
 permissions:
   itemcreator.give:
     default: op
@@ -26,3 +34,9 @@ permissions:
   itemcreator.recipes:
     default: op
     description: View and manage existing recipes
+  itemcreator.admin:
+    default: op
+    description: Use ItemCreator admin commands like reload
+  itemcreator.abilities:
+    default: op
+    description: Manage item abilities through the GUI

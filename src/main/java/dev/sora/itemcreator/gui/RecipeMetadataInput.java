@@ -111,9 +111,12 @@ public class RecipeMetadataInput implements Listener {
 
         state = InputState.OUTPUT_TYPE;
         player.sendMessage(Component.text("Step 2/6: Output Item Type", NamedTextColor.AQUA));
-        player.sendMessage(Component.text("Should the output be a custom item or vanilla item?", NamedTextColor.YELLOW));
-        player.sendMessage(Component.text("• Type 'custom' to create a new custom item with metadata", NamedTextColor.GRAY));
-        player.sendMessage(Component.text("• Type 'vanilla' to use the placed item as-is (like ARROW, DIAMOND, etc.)", NamedTextColor.GRAY));
+        player.sendMessage(
+                Component.text("Should the output be a custom item or vanilla item?", NamedTextColor.YELLOW));
+        player.sendMessage(
+                Component.text("• Type 'custom' to create a new custom item with metadata", NamedTextColor.GRAY));
+        player.sendMessage(Component.text("• Type 'vanilla' to use the placed item as-is (like ARROW, DIAMOND, etc.)",
+                NamedTextColor.GRAY));
     }
 
     private void handleOutputType(String input) {
@@ -132,8 +135,8 @@ public class RecipeMetadataInput implements Listener {
         player.sendMessage(Component.text("Step 3/6: Output Amount", NamedTextColor.AQUA));
         player.sendMessage(Component.text("How many items should this recipe produce?", NamedTextColor.YELLOW));
         player.sendMessage(Component.text("• Type a number (like 1, 9, 16, 64)", NamedTextColor.GRAY));
-        player.sendMessage(Component.text("• For reference: your output slot currently has " + 
-            (gui.getOutputItem() != null ? gui.getOutputItem().getAmount() : 0) + " items", NamedTextColor.GRAY));
+        player.sendMessage(Component.text("• For reference: your output slot currently has " +
+                (gui.getOutputItem() != null ? gui.getOutputItem().getAmount() : 0) + " items", NamedTextColor.GRAY));
     }
 
     private void handleOutputAmount(String input) {
@@ -156,8 +159,10 @@ public class RecipeMetadataInput implements Listener {
         } else {
             state = InputState.CUSTOM_NAME;
             player.sendMessage(Component.text("Step 4/6: Display Name", NamedTextColor.AQUA));
-            player.sendMessage(Component.text("Enter the display name players will see (like '&6Magic Sword'):", NamedTextColor.YELLOW));
-            player.sendMessage(Component.text("• Use & for color codes: &a=green, &c=red, &6=gold, etc.", NamedTextColor.GRAY));
+            player.sendMessage(Component.text("Enter the display name players will see (like '&6Magic Sword'):",
+                    NamedTextColor.YELLOW));
+            player.sendMessage(
+                    Component.text("• Use & for color codes: &a=green, &c=red, &6=gold, etc.", NamedTextColor.GRAY));
             player.sendMessage(Component.text("• Type 'skip' to use the default item name", NamedTextColor.GRAY));
         }
     }
@@ -233,18 +238,20 @@ public class RecipeMetadataInput implements Listener {
             factory.getPlugin().getLogger().info("Custom Model Data: " + customModelData);
             factory.getPlugin().getLogger().info("Use Vanilla Item: " + useVanillaItem);
             factory.getPlugin().getLogger().info("Output Amount: " + outputAmount);
-            factory.getPlugin().getLogger().info("GUI Output Item: " + 
-                (gui.getOutputItem() != null ? gui.getOutputItem().getType().name() : "null"));
-            
-            // Create the recipe using the gathered information  
+            factory.getPlugin().getLogger().info("GUI Output Item: " +
+                    (gui.getOutputItem() != null ? gui.getOutputItem().getType().name() : "null"));
+
+            // Create the recipe using the gathered information
             // For vanilla items, we don't need placeable setting
-            // For custom items, default to null (no material conversion) to preserve original material
+            // For custom items, default to null (no material conversion) to preserve
+            // original material
             Boolean placeableForRecipe = useVanillaItem ? null : null;
             factory.getPlugin().getLogger().info("Placeable setting: " + placeableForRecipe);
             factory.getPlugin().getLogger().info("=== END RECIPE METADATA INPUT DEBUG ===");
-            
+
             RecipeCreationResult result = RecipeCreator.createRecipe(
-                    gui, recipeId, customName, loreLines, customModelData, placeableForRecipe, useVanillaItem, outputAmount, factory);
+                    gui, recipeId, customName, loreLines, customModelData, placeableForRecipe, useVanillaItem,
+                    outputAmount, factory);
 
             if (result.isSuccess()) {
                 player.sendMessage(Component.text("Recipe created successfully!", NamedTextColor.GREEN));
