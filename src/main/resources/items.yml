@@ -1,0 +1,24 @@
+# Define custom items and bundle recipes
+items:
+  box_of_gunpowder:
+    material: CHEST
+    name: "Box of Gunpowder"
+    lore:
+      - "A neatly packed crate of explosive dust."
+    custom-model-data: 1001
+  box_of_arrows:
+    material: CHEST
+    name: "Box of Arrows"
+    lore:
+      - "A bundle of fletched arrows ready to loose."
+    custom-model-data: 1002
+
+bundles:
+  gunpowder:
+    item: GUNPOWDER
+    count: 9
+    box-id: box_of_gunpowder
+  arrows:
+    item: ARROW
+    count: 9
+    box-id: box_of_arrows

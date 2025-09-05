@@ -1,0 +1,21 @@
+name: ${name}
+version: ${version}
+main: ${main}
+api-version: "1.21"
+loader: "io.papermc.paper.plugin.loader.DefaultPluginLoader"
+author: sora
+commands:
+  giveitem:
+    description: Give a custom item by id
+    usage: /giveitem <id> [player]
+    permission: itemcreator.give
+  createrecipe:
+    description: Open the recipe creator interface
+    usage: /createrecipe
+    permission: itemcreator.createrecipe
+permissions:
+  itemcreator.give:
+    default: op
+  itemcreator.createrecipe:
+    default: op
+    description: Create custom recipes using the GUI interface
